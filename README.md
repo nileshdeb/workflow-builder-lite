@@ -3,6 +3,19 @@
 A lightweight AI-powered workflow automation tool that allows users to create modular text-processing workflows using Large Language Models (LLMs).
 
 ---
+---
+
+## 🚀 Live Demo
+
+🔗 **Deployed Application:**  
+https://workflow-builder-lite.onrender.com  
+
+📊 **System Status Page:**  
+https://workflow-builder-lite.onrender.com/status  
+
+---
+
+
 
 ## ✨ Features
 
@@ -175,4 +188,5 @@ workflow-builder-lite/
 ## 📄 License
 
 This project is open-source and available for educational and portfolio purposes.
+
 
