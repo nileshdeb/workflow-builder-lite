@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center">
+
+<div class="bg-white shadow-2xl rounded-3xl p-14 w-[600px]">
+
+    <h1 class="text-4xl font-bold mb-12 text-center">
+        ⚙️ System Status
+    </h1>
+
+    <div class="space-y-8 text-xl">
+
+        <div class="flex justify-between items-center">
+            <span>Backend</span>
+            <span class="px-5 py-2 rounded-full 
+                {% if backend == "OK" %}
+                    bg-green-100 text-green-700
+                {% else %}
+                    bg-red-100 text-red-700
+                {% endif %}">
+                {{ backend }}
+            </span>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <span>Database</span>
+            <span class="px-5 py-2 rounded-full 
+                {% if database == "Connected" %}
+                    bg-green-100 text-green-700
+                {% else %}
+                    bg-red-100 text-red-700
+                {% endif %}">
+                {{ database }}
+            </span>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <span>LLM Connection</span>
+            <span class="px-5 py-2 rounded-full 
+                {% if llm == "Configured" %}
+                    bg-green-100 text-green-700
+                {% else %}
+                    bg-yellow-100 text-yellow-700
+                {% endif %}">
+                {{ llm }}
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

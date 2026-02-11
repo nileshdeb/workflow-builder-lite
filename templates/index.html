@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workflow Builder Lite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen">
+
+<div class="flex">
+
+<!-- ================= SIDEBAR ================= -->
+<div class="w-80 bg-white shadow-xl p-8 min-h-screen sticky top-0">
+
+    <h2 class="text-2xl font-bold mb-8">📜 Run History</h2>
+
+    {% if runs %}
+        {% for run in runs %}
+        <a href="/run/{{ run.id }}">
+            <div class="mb-4 p-5 rounded-2xl border transition duration-300 cursor-pointer
+                {% if selected_run_id == run.id %}
+                    bg-blue-50 border-blue-400 shadow-md scale-[1.02]
+                {% else %}
+                    bg-gray-50 border-gray-200 hover:shadow-lg hover:-translate-y-1
+                {% endif %}
+            ">
+                <div class="font-semibold text-lg">{{ run.workflow_name }}</div>
+                <div class="text-gray-500 text-sm mt-1">
+                    Run #{{ run.id }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-400">No previous runs</p>
+    {% endif %}
+</div>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="flex-1 p-16">
+
+<div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl p-14">
+
+<!-- Header -->
+<div class="mb-12">
+    <h1 class="text-4xl font-bold tracking-tight">
+        🚀 Workflow Builder Lite
+    </h1>
+    
+</div>
+
+
+<!-- ================= FORM ================= -->
+<form method="post" action="/run" class="space-y-10" id="workflowForm">
+
+<textarea name="text"
+    class="w-full border border-gray-300 bg-white 
+    rounded-3xl p-8 text-lg
+    focus:ring-4 focus:ring-blue-200 focus:outline-none transition"
+    rows="7"
+    placeholder="Enter your text here...">{{ previous_text or "" }}</textarea>
+
+
+<div class="grid grid-cols-2 gap-8 text-lg">
+
+    {% set step_list = [
+        ("clean_text", "Clean Text"),
+        ("summarize", "Summarize"),
+        ("extract_key_points", "Extract Key Points"),
+        ("tag_category", "Tag Category")
+    ] %}
+
+    {% for value, label in step_list %}
+    <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition cursor-pointer">
+        <input type="checkbox" name="steps" value="{{ value }}"
+        {% if selected_steps and value in selected_steps %} checked {% endif %}>
+        {{ label }}
+    </label>
+    {% endfor %}
+
+</div>
+
+
+<button id="runBtn"
+    class="w-full bg-gradient-to-r from-blue-600 to-blue-700
+    text-white py-5 text-xl font-semibold rounded-3xl transition
+    hover:shadow-xl hover:scale-[1.02]
+    flex items-center justify-center gap-3">
+
+    <span id="btnText">Run Workflow</span>
+
+    <!-- Spinner -->
+    <svg id="spinner"
+         class="hidden w-6 h-6 animate-spin text-white"
+         fill="none"
+         viewBox="0 0 24 24">
+        <circle class="opacity-25"
+                cx="12" cy="12" r="10"
+                stroke="currentColor"
+                stroke-width="4">
+        </circle>
+        <path class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+        </path>
+    </svg>
+
+</button>
+
+</form>
+
+
+<!-- ================= EXECUTION TIMELINE ================= -->
+{% if outputs %}
+<hr class="my-14 border-gray-300">
+
+<h2 class="text-3xl font-bold mb-12">Execution Timeline</h2>
+
+<div class="flex space-x-8 overflow-x-auto pb-6">
+
+{% for step, data in outputs.items() %}
+
+<div onclick="expandCard(this)"
+     class="timeline-card min-w-[380px] 
+     bg-white border border-gray-200
+     rounded-3xl p-8 shadow-md 
+     hover:shadow-xl transition-all duration-300
+     cursor-pointer relative">
+
+<div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold">
+        {{ step.replace("_", " ").title() }}
+    </h3>
+
+    {% if data.status == "success" %}
+        <span class="bg-green-100 text-green-700 text-sm px-4 py-1 rounded-full font-medium">
+            Success
+        </span>
+    {% else %}
+        <span class="bg-red-100 text-red-700 text-sm px-4 py-1 rounded-full font-medium">
+            Failed
+        </span>
+    {% endif %}
+</div>
+
+<p class="text-base whitespace-pre-wrap text-gray-700 leading-relaxed">
+    {{ data.content }}
+</p>
+
+<div class="mt-8 text-sm text-gray-500">
+    Tokens Used: {{ data.tokens }}
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endif %}
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= JS ================= -->
+<script>
+
+// Expand timeline cards
+function expandCard(card) {
+    const cards = document.querySelectorAll('.timeline-card');
+
+    cards.forEach(c => {
+        c.classList.remove(
+            "scale-110",
+            "z-20",
+            "shadow-2xl",
+            "ring-4",
+            "ring-blue-200"
+        );
+    });
+
+    card.classList.add(
+        "scale-110",
+        "z-20",
+        "shadow-2xl",
+        "ring-4",
+        "ring-blue-200"
+    );
+}
+
+
+// Spinner on submit
+const form = document.getElementById("workflowForm");
+const btn = document.getElementById("runBtn");
+const spinner = document.getElementById("spinner");
+const btnText = document.getElementById("btnText");
+
+form.addEventListener("submit", function() {
+
+    btn.disabled = true;
+    btn.classList.add("opacity-80", "cursor-not-allowed");
+
+    spinner.classList.remove("hidden");
+    btnText.innerText = "Processing...";
+});
+
+</script>
+
+</body>
+</html>
