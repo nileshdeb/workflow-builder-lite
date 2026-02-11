@@ -67,7 +67,7 @@ Dedicated health status page (`/status`)
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/nileshdeb/workflow-builder-lite>
 cd workflow-builder-lite
 ```
 
@@ -175,3 +175,4 @@ workflow-builder-lite/
 ## 📄 License
 
 This project is open-source and available for educational and portfolio purposes.
+
