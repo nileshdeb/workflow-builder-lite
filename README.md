@@ -152,16 +152,7 @@ http://127.0.0.1:8000/status
 
 ---
 
-## 🔮 Future Improvements
 
-- Drag-and-drop workflow builder  
-- Async job execution  
-- Authentication system  
-- Rate limiting  
-- Production-ready deployment configuration  
-- Usage analytics dashboard  
-
----
 
 ## 📌 Project Structure
 
@@ -188,5 +179,6 @@ workflow-builder-lite/
 ## 📄 License
 
 This project is open-source and available for educational and portfolio purposes.
+
 
 
