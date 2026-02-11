@@ -1,137 +1,158 @@
-🚀 Workflow Builder Lite
+# 🚀 Workflow Builder Lite
 
 A lightweight AI-powered workflow automation tool that allows users to create modular text-processing workflows using Large Language Models (LLMs).
 
-✨ Features
-🔹 Workflow Steps
+---
+
+## ✨ Features
+
+### 🔹 Workflow Steps
 
 Create workflows with multiple processing steps:
 
-Clean Text
+- Clean Text  
+- Summarize  
+- Extract Key Points  
+- Tag Category  
 
-Summarize
+---
 
-Extract Key Points
+### 🔹 Execution Insights
 
-Tag Category
+- Step-by-step execution timeline  
+- Token usage tracking per step  
+- Success / failure status badges  
 
-🔹 Execution Insights
+---
 
-Step-by-step execution timeline
+### 🔹 Run History
 
-Token usage tracking per step
+- Stores last 5 runs  
+- Clickable previous runs  
+- Automatically loads previous input and outputs  
 
-Success / failure status badges
+---
 
-🔹 Run History
+### 🔹 System Monitoring
 
-Stores last 5 runs
+Dedicated health status page (`/status`)
 
-Clickable previous runs
+- Backend health check  
+- Database connectivity check  
+- LLM configuration check  
 
-Automatically loads previous input and outputs
+---
 
-🔹 System Monitoring
+### 🔹 User Experience
 
-Dedicated health status page (/status)
+- Interactive UI (expandable step cards)  
+- Spinner animation during execution  
+- Clean, modern TailwindCSS design  
 
-Backend health check
+---
 
-Database connectivity check
+## 🛠 Tech Stack
 
-LLM configuration check
+- FastAPI – Backend framework  
+- SQLAlchemy – ORM  
+- SQLite – Database  
+- OpenRouter API – LLM provider  
+- TailwindCSS – UI styling  
+- Jinja2 – Templating engine  
 
-🔹 User Experience
+---
 
-Interactive UI (expandable step cards)
+## ⚙️ How To Run Locally
 
-Spinner animation during execution
+### 1️⃣ Clone Repository
 
-Clean, modern TailwindCSS design
-
-🛠 Tech Stack
-
-FastAPI – Backend framework
-
-SQLAlchemy – ORM
-
-SQLite – Database
-
-OpenRouter API – LLM provider
-
-TailwindCSS – UI styling
-
-Jinja2 – Templating engine
-
-⚙️ How To Run Locally
-1️⃣ Clone Repository
+```bash
 git clone <your-repo-url>
 cd workflow-builder-lite
+```
 
-2️⃣ Create Virtual Environment
+### 2️⃣ Create Virtual Environment
+
+```bash
 python -m venv venv
+```
 
-3️⃣ Activate Environment
-Windows
+### 3️⃣ Activate Environment
+
+**Windows**
+```bash
 venv\Scripts\activate
+```
 
-Mac/Linux
+**Mac/Linux**
+```bash
 source venv/bin/activate
+```
 
-4️⃣ Install Dependencies
+### 4️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-5️⃣ Configure Environment Variables
+### 5️⃣ Configure Environment Variables
 
-Create a .env file in the root directory and add:
+Create a `.env` file in the root directory and add:
 
+```env
 OPENROUTER_API_KEY=your_api_key_here
+```
 
-6️⃣ Run Server
+### 6️⃣ Run Server
+
+```bash
 uvicorn app.main:app --reload
+```
 
-🌐 Access Application
+---
+
+## 🌐 Access Application
 
 Open in browser:
 
+```
 http://127.0.0.1:8000
-
+```
 
 Status page:
 
+```
 http://127.0.0.1:8000/status
+```
 
-✅ What Is Implemented
+---
 
-Modular workflow execution engine
+## ✅ What Is Implemented
 
-Structured step return format (content, tokens, status)
+- Modular workflow execution engine  
+- Structured step return format (content, tokens, status)  
+- Persistent run history (last 5 runs)  
+- Health monitoring dashboard  
+- Input validation  
+- Safe environment variable usage  
+- Interactive timeline UI  
 
-Persistent run history (last 5 runs)
+---
 
-Health monitoring dashboard
+## 🔮 Future Improvements
 
-Input validation
+- Drag-and-drop workflow builder  
+- Async job execution  
+- Authentication system  
+- Rate limiting  
+- Production-ready deployment configuration  
+- Usage analytics dashboard  
 
-Safe environment variable usage
+---
 
-Interactive timeline UI
+## 📌 Project Structure
 
-🔮 Future Improvements
-
-Drag-and-drop workflow builder
-
-Async job execution
-
-Authentication system
-
-Rate limiting
-
-Production-ready deployment configuration
-
-Usage analytics dashboard
-
-📌 Project Structure
+```
 workflow-builder-lite/
 │
 ├── app/
@@ -147,7 +168,10 @@ workflow-builder-lite/
 │
 ├── requirements.txt
 └── README.md
+```
 
-📄 License
+---
+
+## 📄 License
 
 This project is open-source and available for educational and portfolio purposes.
