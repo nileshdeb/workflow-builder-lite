@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-MODEL = "openai/gpt-4o-mini"   # or anthropic/claude-3-haiku
+MODEL = "openai/gpt-4o-mini"   
 
 def call_llm(prompt: str):
     api_key = os.getenv("OPENROUTER_API_KEY")
